@@ -8,7 +8,7 @@
 -->
 <template>
   <div>
-    user
+    this is user page
   </div>
 </template>
 
