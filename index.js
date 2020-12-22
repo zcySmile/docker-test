@@ -64,6 +64,7 @@ http.createServer(async (req, res) => {
             stdio: 'inherit',
             cwd: projectDir
         })
+        console.log('build  镜像创建成功')
 
         // 销毁 docker 容器
         execSync(
