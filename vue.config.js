@@ -9,6 +9,7 @@
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 module.exports = {
+  lintOnSave: false, // 关闭eslint
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   // publicPath:process.env.NODE_ENV === 'production'?"/test": "/"  两种方式都可以
   configureWebpack: {
