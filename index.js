@@ -25,10 +25,8 @@ const resolvePost = req =>
             chunk += data;
         });
         req.on("end", () => {
-            resolve(chunk);
+            resolve(chunk)
 
-
-            
         });
     });
 
