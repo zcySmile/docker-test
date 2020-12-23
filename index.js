@@ -35,6 +35,13 @@ http.createServer(async (req, res) => {
     if (req.method === 'POST' && req.url === '/') {
       const data = await resolvePost(req);
       res.end(data)
+
+
+
+
+
+
+
 //       const projectDir = path.resolve(`./${data.repository.name}`)
 //      deleteFolderRecursive(projectDir)
      
@@ -64,6 +71,10 @@ http.createServer(async (req, res) => {
 //       execSync(`docker run -d -p 8888:80 --name ${data.repository.name}-container  ${data.repository.name}-image:latest`, {
 //        stdio:'inherit',
 //    })
+
+
+
+
 
 //    console.log('deploy success')
 //     res.end('ok')
