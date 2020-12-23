@@ -25,7 +25,7 @@ const resolvePost = req =>
             chunk += data;
         });
         req.on("end", () => {
-            resolve(JSON.parse(chunk));
+            resolve(chunk);
         });
     });
 
