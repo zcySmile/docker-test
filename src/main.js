@@ -6,7 +6,8 @@
  * @Description: In User Settings Ed
  * @FilePath: \testvue2\src\main.js
  */
-import Vue from 'vue'
+// import Vue from 'vue'
+import Vue from '../vue.js'
 import App from './App.vue'
 import router from './router'
 import vueRouter from 'vue-router'
