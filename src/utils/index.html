@@ -1,0 +1,71 @@
+<!--
+ * @Author: zcySmile
+ * @Date: 2020-12-26 16:10:37
+ * @LastEditors: zcySmile
+ * @LastEditTime: 2020-12-27 08:58:10
+ * @Description: 
+-->
+！<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body></body>
+    <script src="./promise2.js"></script>
+    <script>
+        let p = new HD((resolve, reject) => {
+            // resolve('resolve')
+            setTimeout(() => {
+                resolve('解决1')
+            }, 1000)
+        })
+        // let pp = new HD(r)
+        let pp = new HD((resolve, reject) => {
+            // resolve('resolve')
+            setTimeout(() => {
+                reject('解决2')
+            }, 2000)
+        })
+        let ppp = new HD((resolve, reject) => {
+            // resolve('resolve')
+            setTimeout(() => {
+                resolve('解决3')
+            }, 3000)
+        })
+
+        HD.race([p, pp, ppp]).then(
+            (res) => {
+                console.log(res)
+            },
+            (err) => {
+                console.log(err)
+            }
+        )
+        // console.log(p)
+
+        // let pp = p
+        //     .then(
+        //         (res) => {
+        //             console.log(res)
+        //             return '第二个返回值'
+        //         },
+        //         (reason) => {
+        //             console.log(reason)
+        //             console.log('第一个promise拒绝')
+        //             return '第一个拒绝后返回的值'
+        //         }
+        //     )
+        //     .then(
+        //         (res) => {
+        //             console.log(res)
+        //         },
+        //         (reson) => {
+        //             console.log(reson)
+        //         }
+        //     )
+        // console.log(pp)
+    </script>
+</html>
