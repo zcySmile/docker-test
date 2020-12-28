@@ -9,17 +9,22 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <router-link to="/user">user&nbsp;</router-link>
+    <!-- <router-link to="/user">user&nbsp;</router-link>
     <router-link to="/about">about</router-link>
-    <router-view></router-view>
+    <router-view></router-view> -->
+    <about/>
+    <user/>
   </div>
 </template>
 
 <script>
-
+import About from  './components/about.vue'
+import User from './components/user.vue'
 export default {
   name: 'App',
   components: {
+    About,
+    User
   },
   mounted () {
     console.log(this)

@@ -1,16 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-12-14 14:58:24
- * @LastEditTime: 2020-12-15 18:00:33
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \testvue2\src\utils\index.js
- */
-
-const { Object } = require("core-js")
-
-
-
 
 
 // // 防抖
