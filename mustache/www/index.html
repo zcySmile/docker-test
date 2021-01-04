@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustache</title>
+</head>
+<body>
+    
+</body>
+<script src="./dist/bundle.js"></script>
+<script>
+    const temstr = "<h2>今天收到一个{{thing}},心情好{{mood}}<h2>"
+    const data = {}
+    Mutache.render(temstr, data)
+</script>
+<!-- <script>
+    const template = `<h2> 我买了一个{{thing}}，好{{mood}}</h2>`
+     const data = {
+         thing: '手机',
+         mood: '开心'
+     }
+const temStr = `
+ <ul>
+    {{#arr}}
+     <li>
+        <div class="hd">{{name}}的基本信息</div>
+      <div class="bd">
+        <p>姓名{{name}}</p>
+        <p>姓名{{age}}</p>
+      </div>   
+     </li>
+    {{/arr}}
+    </ul>
+`
+const data2 = {
+    attr: [
+        {name:'小明',age: '24'},
+        {name:'lili',age: '24'},
+        {name:'wagnwang',age: '24'},
+    ]
+}
+</script> -->
+</html>
