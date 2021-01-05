@@ -359,7 +359,6 @@
      */
     Scanner.prototype.scanUntil = function scanUntil (re) {
       var index = this.tail.search(re), match;
-  
       switch (index) {
         case -1:
           match = this.tail;

@@ -10,9 +10,28 @@
 </body>
 <script src="./dist/bundle.js"></script>
 <script>
-    const temstr = "<h2>今天收到一个{{thing}},心情好{{mood}}<h2>"
-    const data = {}
-    Mutache.render(temstr, data)
+    const temstr =  `<div>
+ <ol>
+    {{#students}}
+     <li>
+        学生{{name}}的爱好是
+        <ol>
+        {{#hobbies}}
+          <li>{{.}}</li>
+        {{/hobbies}}
+       </ol>  
+     </li>
+    {{/students}}
+</ol></div>
+`
+    const data = {
+        students:[
+            {'name': '小明', 'hobbies':['游泳','健身']},
+            {'name': '小明2', 'hobbies':['游泳','健身','羽毛球']},
+            {'name': '小明3', 'hobbies':['游泳','健身']}
+        ]
+    }
+    document.getElementsByTagName('body')[0].innerHTML = Mutache.render(temstr, data)
 </script>
 <!-- <script>
     const template = `<h2> 我买了一个{{thing}}，好{{mood}}</h2>`
