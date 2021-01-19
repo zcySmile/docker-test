@@ -59,30 +59,72 @@ Singleton.prototype.getName= function() { // 不可以使用箭头函数
 
 let winner = new ProxyCreateSingleton('winner')
 let loser = new ProxyCreateSingleton('loser')
-console.log(winner) // Singleton{name:winner}
-console.log(winner.getName()) // winner
-console.log(loser.getName())// winner
+// console.log(winner) // Singleton{name:winner}
+// console.log(winner.getName()) // winner
+// console.log(loser.getName())// winner
 
 
 // 惰性单例模式，  需要时才创建类实例
 
-let getSingleton = function(fn) {
-    var result
-    return function() {
-        return result || (result = fn.applay(this,arguments))
-    }
+function AlertClass(message) {
+    this.message = message
+}
+AlertClass.prototype.seMessage= function(message) {
+    this.message = message
 }
 
-let CreateAlertMessage = function(html) {
-    let div = document.createElement('div')
-    div.innerHTML = html
-    div.style.display = 'none'
-    document.body.appendChild(div)
-    return div
+function MaskClass(name) {
+    this.name = name
 }
+MaskClass.prototype.getName = function () {
+    console.log(this.name)
+}
+let proxyCreateAlterInstance = (function () {
+    let instance
+    return function (message) {
+        if(instance) return instance
+        instance = new AlertClass(message)
+        return instance
+    }
+})
+
 
 
 
 // 单例模式使用场景
 // 引用第三方库，多次引用只会使用一个库的引用
 // 弹窗， 购物车，全局太管理store(vuex,redux)
+
+
+// ES6 创建单例模式
+
+class AlertSigleton{
+    static instance 
+    constructor(name) {
+        if(AlertSigleton.instance) return AlertSigleton.instance
+        this.name = name
+        AlertSigleton.instance = this
+    }
+    getName() {
+        console.log(this.name)
+    }
+}
+
+// let alert1 = new AlertSigleton('alert1')
+// let alert2=new AlertSigleton('alert2')
+// console.log(alert1 === alert2)
+
+//  使用静态方法优化方法
+class AlertSingleton2{
+    static instance
+    constructor(name) {
+        this.name = name
+    }
+    static getInstance(name) {
+        if(this.instance ) return this.instance
+        return this.instance = new AlertSingleton2(name)
+    }
+}
+let alert1 = AlertSingleton2.getIn('alert1')
+let alert2=AlertSingleton2.getIn('alert2')
+console.log(alert1 === alert2)

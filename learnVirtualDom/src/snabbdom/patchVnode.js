@@ -13,7 +13,7 @@ export default function (oldVnode, newVnode) {
         return
     }
     if (newVnode.text && (!newVnode.children || newVnode.children.length === 0)) {
-        console.log(oldVnode)
+       console.log(oldVnode)
        oldVnode.elm.innerText = newVnode.text
     } else {// 新的节点中有children 
         if (oldVnode.text) {// 老的节点中是text
