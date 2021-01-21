@@ -132,40 +132,46 @@ var combinationSum2 = function(candidates, target) {
     if(candidates.length === 0) {
         return []
     }
-    let result = []
+    
+    function dfs(candidates,target,level,begin,path,result,length) {
+        if(target<=0 || level===length) {
+            if(target === 0) {
+                result.push([...path])
+            }
+            return
+        }
+        let max=Math.max(level,begin)
+        for(let i= max;i<length;i++) {
+            let num = candidates[i]
+            if(num>target) {
+             break;
+            }
+            if(i>max&&(candidates[i] ===candidates[i-1])){
+                continue
+            }
+            path.push(num)
+            dfs(candidates,target-num,level+1,i,path,result,length)
+            path.pop()
+        }
+     }
+
+
+     let result = []
     candidates.sort(function (a,b) {
         return a-b
     })
-    console.log(candidates)
+
     let length = candidates.length
     dfs(candidates,target,0,0,[],result,length)
     return result
 };
 
-function dfs(candidates,target,level,begin,path,result,length) {
-   if(target<=0 || level===length) {
-       if(target === 0) {
-           result.push([...path])
-       }
-       return
-   }
-   let max=Math.max(level,begin)
-   for(let i= max;i<length;i++) {
-       let num = candidates[i]
-       if(num>target) {
-        break;
-       }
-       if(i>max&&(candidates[i] ===candidates[i-1])){
-           continue
-       }
-       path.push(num)
-       dfs(candidates,target-num,level+1,i,path,result,length)
-       path.pop()
-   }
-}
+
 
 
 // console.log(combinationSum2([10,1,2,7,6,1,5],8))
+
+// 乐扣  77
 var combine = function(n, k) {
     if(n===0 || k===0 || k>n) {
         return []
@@ -173,22 +179,141 @@ var combine = function(n, k) {
 
     let reuslt = []
 
+    function dfs(n,k,level,begin,data,reuslt) {
+        if(level>k) {
+            reuslt.push([...data])
+            return
+        }
+        for(let i=begin;i<=n;i++) {
+            data.push(i)
+            console.log('进',i)
+            dfs(n,k,level+1,i+1,data,reuslt)  //  最开始把i+1, 写成了begin+1
+           console.log('出', data.pop())
+        }
+    }
+
     dfs(n,k,1,1,[],reuslt) 
     return reuslt
 
 };
 
-function dfs(n,k,level,begin,data,reuslt) {
-    if(level>k) {
-        reuslt.push([...data])
-        return
-    }
-    for(let i=begin;i<=n;i++) {
-        data.push(i)
-        console.log('进',i)
-        dfs(n,k,level+1,i+1,data,reuslt)  //  最开始把i+1, 写成了begin+1
-       console.log('出', data.pop())
-    }
-}
 
-console.log(combine(4,2))
+
+// console.log(combine(4,2))
+
+
+// 乐扣 78
+var subsets = function(nums) {
+    if(nums.length === 0) {
+        return [nums]
+    }
+
+    function dfs(nums, begin, path,result) {
+        let length = nums.length
+        if(begin>length) {
+            return
+        }
+        result.push([...path])
+
+        for(let i=begin;i<length;i++) {
+            path.push(nums[i])
+            dfs(nums,i+1,path,result)
+            path.pop()
+        }
+    }
+
+    let result = []
+
+    dfs(nums,0,[],result)
+    return result
+};
+
+// console.log(subsets([0]))
+// leecode 90
+var subsetsWithDup = function(nums) {
+    if(nums.length === 0) {
+        return [[]]
+    }
+
+    nums.sort((a,b)=>a-b)
+    function dfs(nums,begin,path,result) {
+        let length = nums.length
+        if(begin > length){
+            return
+        }
+        result.push([...path])
+        for(let i=begin;i<length;i++) {
+            if(i>begin&&nums[i]===nums[i-1]){
+                continue
+            }
+            path.push(nums[i])
+            dfs(nums,i+1,path,result)
+            path.pop()
+        }
+    }
+
+    let result = []
+    dfs(nums,0,[],result)
+    return result
+};
+
+// console.log(subsetsWithDup([1,2,2]))
+
+// leecode 60
+var getPermutation = function(n, k) {
+      
+    
+    function dfs(n,k,used,path,index,result) {
+        if(n === path.length) {
+            index.num++
+            console.log(path)
+            console.log(index.num)
+            if(index.num ===k){
+                result.push([...path])
+            }
+            return
+        }
+
+        for(let i=1;i<=n;i++) {
+            if(index.num>k) {
+                break;
+            }
+            if(used[i]) {
+                continue;
+            }
+            used[i]= true
+            path.push(i)
+            dfs(n,k,used,path,index,result)
+            used[i] = false
+            path.pop()
+        }
+    }
+    
+    // let begin = Math.floor(k/n)
+    // let x = k % n 
+    let m = 1
+    let f= n-1
+    while(f>0) {
+        m = m*(f--)
+    }
+    console.log(m)
+
+    let begin = Math.floor(k/m)
+    let d = k % m
+    console.log('d',d)
+    if(d!== 0) {
+        begin++
+    } else {
+        d = m
+    }
+
+    let used = []
+    used[begin] = true
+    let path = [begin]
+    let result = []
+    dfs(n,d,used,path,{num: 0},result)
+    return result[0].join('')
+};
+// getPermutation(3,3)
+
+console.log(getPermutation(3,3))
