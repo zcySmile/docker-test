@@ -8,7 +8,7 @@
 import vnode from './vnode.js'
 import patchVnode from './patchVnode.js'
 export default function (oldVnode, newVnode) {
-    console.log('jinru path')
+    console.log('jinru patch')
     //判断老的vnode是不是虚拟节点
     if (!oldVnode.sel) {
         // dom节点，包装成虚拟节点

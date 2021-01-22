@@ -5,13 +5,13 @@
  * @LastEditTime: 2021-01-03 20:46:41
  * @Description: 
  */
-import { init } from 'snabbdom/init'
-import { classModule } from 'snabbdom/modules/class'
-import { propsModule } from 'snabbdom/modules/props'
-import { styleModule } from 'snabbdom/modules/style'
-import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
+// import { init } from 'snabbdom/init'
+// import { classModule } from 'snabbdom/modules/class'
+// import { propsModule } from 'snabbdom/modules/props'
+// import { styleModule } from 'snabbdom/modules/style'
+// import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
 import h from './snabbdom/h' // helper function for creating vnodes
-import vnode from './snabbdom/vnode'
+// import vnode from './snabbdom/vnode'
 
 // var patch = init([ // Init patch function with chosen modules
 //   classModule, // makes it easy to toggle classes
@@ -53,13 +53,13 @@ const vnode3 = h('section', {}, [
 ])
 
 const vnode4 = h('ul', {}, [
-    h('li', { key: 'A' }, 'A'),
-    h('li', { key: 'B' }, 'B'),
-    h('li',{key: 'C'},'C')
+    h('li',{}, 'A'),
+    h('li', {},'B'),
+    h('li',{},'C')
 ])
 const vnode5 = h('ul', {}, [
-    h('li', { key: 'E' }, 'E'),
-    h('li',{key:'F'},"F")
+    h('li', {}, 'A'),
+    h('li',{},"C")
 ])
 patch(container,vnode4)
 // console.log(vnode1)

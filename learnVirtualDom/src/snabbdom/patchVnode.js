@@ -6,7 +6,7 @@
  * @Description: 
  */
 import patchChildNode from './pachChildNode.js'
-import patch, {createElement} from './patch.js'
+import{createElement} from './patch.js'
 export default function (oldVnode, newVnode) {
     console.log('进入patchVnode')
     if (oldVnode === newVnode) {
