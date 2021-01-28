@@ -15,7 +15,7 @@ export default function (oldVnode, newVnode) {
         let sel = oldVnode.tagName.toLowerCase()
         oldVnode = vnode(sel, {}, [], undefined, oldVnode)
     }
-// 判断是不是同一个节点
+   // 判断是不是同一个节点
     if(oldVnode.sel === newVnode.sel && oldVnode.key === newVnode.key)
     {
         // 同一个节点，精细比较

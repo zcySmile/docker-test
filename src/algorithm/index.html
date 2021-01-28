@@ -6,6 +6,114 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="./dfs.js"></script>
+    <script src="./sort.js"></script>
 </body>
+<script>
+    // function(data, age) {
+    //     return data.filter(item => {
+    //         return item.age < age
+    //     })
+    // }
+    // function(data, gender) {
+    //     return data.filter(item => {
+    //         return item.sex = gender
+    //     })
+    // }
+    // function(data, name) {
+    //     return data.find(item => {
+    //         return item.name === name
+    //     })
+    // }
+
+    // function(data, max) {
+    //     let copyDate = [...data]
+    //     copyDate.sort((a,b)=> a.age > b.age)
+
+    //     return copyDate.splice(0,10)
+    // }
+   let list = [1,2,3,4,5]
+   function add (data) {
+       return function(num) {
+           return num+data
+       }
+   }
+
+   
+//    console.log(list.map(add(1)).map(add(2)).map(add(3)))
+
+
+// 柯里化函数第一版
+function curry (fn) {
+    let args = [].slice.call(arguments,1)
+    return function() {
+        let newArgs = args.concat([].slice.call(arguments,1))
+        return fn.apply(this, newArgs)
+    }
+}
+
+// function add(a,b) {
+//     return a+b
+// }
+// let addCury = curry(add,1,2) 
+// addCury()
+
+// let addCury2= curry(add,1)
+// addCury2(2)
+
+// let addCury3 = curry(add)
+// addCury3(1,2)
+
+
+function curry2(fn,length) {
+     length =length ||  fn.length
+    let slice = Array.prototype.slice
+    return function() {
+        if(arguments.length <length) {
+            let combined = [fn].concat(slice.call(arguments))
+            return curry2(sub_curry.apply(this, combined),length - arguments.length)
+        } else {
+            return fn.apply(this, arguments)
+        }
+    }
+}
+
+
+// function add() {
+// 	let args = Array.prototype.slice.call(arguments)
+// 	let _add =  function () {
+// 		args.push(...arguments)
+// 		return _add
+// 	}
+// 	_add.toString = function() {
+// 		return args.reduce((cur,a)=> {
+// 			return cur+a
+// 		}, 0)
+//     }
+//     return _add
+// }
+
+// console.log(add(1)(2)(3)(4) == 10)
+
+function add(a,b,c,d) {
+    return a+b+c+d
+}
+function curry3(fn) {
+	let len = fn.length   // 方法的参数
+	return function temp() {
+		let args = [...arguments]  // 收集到的参数
+		if(args.length >= len) {
+			// fn的参数已经完全收集完
+			return fn(...args)
+		} else {
+			// 参数还没有收集完
+			return function() {
+				return temp(...args, ...arguments)
+			}
+		}
+	}
+}
+
+let curryAdd= curry3(add)
+console.log(curryAdd(1)(2)(3)(4))
+</script>
 </html>
