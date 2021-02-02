@@ -73,6 +73,16 @@ function eightOne(nums, target) {
     if(nums[mid] > nums[0]){
         // [left, mide] 有序
         // [mid,right] 无序
+        if(target < nums[mid]) {
+            // 在有序队列中
+            // 二分查找
+        } else {
+            // 在无序列表中
+            // 普通查找，中止条件索引加上 
+            for(let i=mid-1;i>=0;i++) {
+                if()
+            }
+        }
     } else {
 
     }
