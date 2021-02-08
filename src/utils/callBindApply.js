@@ -51,3 +51,33 @@ Object.prototype._bind = function(obj) {
 
 let bindFn = fn._bind(obj2)
 bindFn(obj2)
+
+
+
+
+// 自己默写练习
+
+// function exerciseCall(obj,...args) {
+//     let fn = this   // 调用的额时候肯定是fn.exerciseCall(obj)这样调用，所以this就是fn
+//     let sybmol = new Symbol(fn)
+//     obj[fn] = fn
+//     let result = obj[fn](...args)
+//     delete result[fn]
+//     return result
+// }
+
+// function exerciseApply(obj) {
+//     let fn = this
+//     obj[fn] = this
+//     let args = Array.prototype.slice.call(arguments, 1)
+//     let result = obj.fn(args)
+//     return result
+// }
+
+// function exersiceBind(obj) {
+//     let args = Array.prototype.slice.call(arguments, 1)
+//     obj.fn = this
+//     return  ()=> {
+//         obj.fn(...args,...arguments)
+//     }
+// }

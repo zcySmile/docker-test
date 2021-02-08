@@ -13,9 +13,9 @@ module.exports = {
       // 压缩html代码
       minify: {
         // 移除空格
-        collapseWhitespace: true,
+        collapseWhitespace: true, //collapsWhitespace
         // 移除注释
-        removeComments: true
+        removeComments: true // removeComments
       }
     })
   ],

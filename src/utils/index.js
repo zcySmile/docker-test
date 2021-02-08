@@ -13,6 +13,9 @@
 //   }
 // }
 
+import { all, resolve } from "core-js/fn/promise"
+import { construct } from "core-js/fn/reflect"
+
 // // 节流
 // function root(fn, wait) {
 //   let time = 0
@@ -356,5 +359,221 @@ class sPromise {
         })
       }
     })
+  }
+}
+
+
+
+// sleep函数
+
+function sleep(time) {
+  return new Promise(resolve=>{
+    setTimeout(resolve, time)
+  })
+}
+function sleep2(time) {
+  let feature = new Date().getTime() + parseInt(time, 10)
+  while (new Date().getTime < feature) {
+    continue
+  }
+}
+
+
+// 防抖， 如果在一定的间隔内从新触发了事件，那么不执行而是将执行时间推迟到设定的间隔之后
+
+// function debbule(time) {
+//    let timer 
+//    return function(fn) {
+//      if(timer) {timer = null}
+//      timer = setTimeout(()=> {
+//        fn.call(this)
+//      }, time)
+//    }
+// }
+
+function debounce(fn, time) {
+  let timer 
+  return ()=> {
+    if(timer) clearTimeout(timer)
+    timer = setTimeout(()=> {
+      fn.call(this,...arguments)
+    }, time)
+  }
+}
+
+// 节流， 每隔一定的时间执行一次
+// function threthod(time) {
+//   let timer
+//   return function(fn) {
+//     if(timer) return
+//     timer = setTimeout(()=> {
+//       timer = null
+//       fn.call(this)
+//     },time)
+//   }
+// }
+
+function thorttle(fn,time) {
+  let timer
+  return ()=> {
+    if(!timer) {
+      setTimeout(()=> {
+        timer = null
+        fn.call(this, ...arguments)
+      })
+    }
+  }
+}
+
+
+// 手写instanceof 原理
+
+function myInstanceof(letf, right) {
+  let proto = left.__proto__
+  let isInstance = false
+  while(proto) {
+    if(proto === right.prototype) {
+      isInstance = true
+      break
+    }
+    proto = proto.__proto__
+  }
+  return isInstance
+}
+
+
+class MP {
+  construct(executor) {
+    this.status = 'pending',
+    this.value = ''
+    this.error = ''
+    this.onFullFiledCb= []
+    this.onRejectedCb = []
+
+    function resolve(value) {
+      if(this.status === 'pending') {
+        this.value = value
+        this.status = 'resolved'
+        this.onFullFiledCb.forEach(cb => {
+          cb(this.value)
+        })
+      }
+    }
+
+    function reject(error) {
+      if(this.status === 'pending') {
+        this.status === 'rejected'
+        this.error = error
+        this.onRejectedCb.forEach(cb => {
+          cb(this.error)
+        })
+      }
+    }
+
+    executor(resolve, reject)
+  }
+
+  then(fullFied, rejected) {
+    let  p= new MP((resolve,reject) => {
+
+      if(typeof fullFied !== 'function') {
+        fullFied = (value) => {
+          resolve(value)
+        }
+      }
+      if(typeof rejected !== 'function') {
+        rejected = (value)=> {
+          resolve(value)
+        }
+      }
+
+
+      if(this.status === 'resolved') {
+        this.parse(p, fullFied(this.value), resolve,reject)
+      } else if(this.status === 'rejected') {
+        this.parse(p,rejected(this.error), resolve, reject)
+      } else {
+        this.onFullFiledCb.push((value)=> {
+          this.parse(p, fullFied(value), resolve,reject)
+        })
+        this.onRejectedCb.push((error) => {
+          this.parse(p, rejected(error), resolve,reject)
+        })
+      }
+    })
+
+    return p
+  }
+
+  parse(p, result,resolve,reject) {
+    try {
+      if(p === result) {
+        throw new Error('promise 不可以循环引用')
+      }
+
+      if(result instanceof MP) {
+        result.then(resolve, reject)
+      }
+
+      resolve(result)
+      
+    } catch (error) {
+      reject(error)
+    }
+  }
+
+ static all(pArray) {
+    return new MP((resolve,reject) => {
+       let result = []
+       pArray.forEach(p => {
+          p.then(res=>{
+           result.push(res)
+           if(pArray.length === result.length) {
+             resolve(result)
+           }
+         }, err => {
+           reject(err)
+         })
+       })
+    })
+  }
+
+
+  static race(pArray) {
+    return new MP((resolve,reject)=> {
+      pArray.forEach(p => {
+        p.then(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+      })
+    })
+  }
+
+ 
+}
+
+
+function myNew(fn,...arg) {
+  let obj = {}
+  obj.__proto__ = fn.prototype
+  let result = fn.call(obj,...arg)
+  return typeof result === 'object' ? result : obj
+}
+
+// 柯里化   将多个参数转化为连续传参的函数
+
+function kelihua(fn) {
+  let length = fn.length
+  return function  temp() {
+    let args = [...arguments]
+    if(args.length === length) {
+      return fn(...args)
+    } else {
+      return function () {
+         return temp(...args,...arguments)
+      }
+    }
   }
 }

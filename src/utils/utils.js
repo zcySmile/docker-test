@@ -146,3 +146,4 @@ function axios({method, url, params, data}) {
 axios.get(url, options) {
     return axios(Object.assign(options, {method: 'GET', url}))
 }
+
